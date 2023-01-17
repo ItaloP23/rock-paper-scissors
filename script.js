@@ -22,40 +22,38 @@ const printResult = (winner) => {
     console.log("Game is finished, " + winner + " won!")
 }
 
+const numberOfGames = () => {
+    const NUMBER = prompt("How many games would you like to play?", );
+    return NUMBER
+}
 
+const playRound = ( computer , player ) => {
+    //choices
+    console.log(`Computer chooses ${computer}, player chooses ${player}`)
 
-const game = ( numberOfGames ) => {
-
-    let playerScore = 0;
-    let computerScore = 0;
-
-    const playRound = ( computer , player ) => {
-        //choices
-        console.log(`Computer chooses ${computer}, player chooses ${player}`)
-    
-        // who wins between computer and player    
-        if ( computer[0] === player[0] ) {
-            console.log("it's a tie");
-            computerScore++;
-            playerScore++;
-            return
-        } else if (
-            ( computer[0] === 'r' && player[0] === ( 's' || 'S' ) ) ||
-            ( computer[0] === 's' && player[0] === ( 'p' || 'P' ) ) ||
-            ( computer[0] === 'p' && player[0] === ( 'r' || 'R' ) )
-        )  {
-            console.log("computer wins");
-            computerScore++;
-            return
-        } else {
-            console.log("player wins");
-            playerScore++;
-            return 
-        }
+    // who wins between computer and player    
+    if ( computer[0] === player[0] ) {
+        console.log("it's a tie");
+        return
+    } else if (
+        ( computer[0] === 'r' && player[0] === ( 's' || 'S' ) ) ||
+        ( computer[0] === 's' && player[0] === ( 'p' || 'P' ) ) ||
+        ( computer[0] === 'p' && player[0] === ( 'r' || 'R' ) )
+    )  {
+        console.log("computer wins");
+        computerScore++;
+        return
+    } else {
+        console.log("player wins");
+        playerScore++;
+        return 
     }
-    
+}
+
+const game = ( games ) => {
+
     // for loop over the number of games
-    for (let i = 1 ; i <= numberOfGames ; i++) {
+    for (let i = 1 ; i <= games ; i++) {
 
         //call a single round play
         playRound( getComputerChoice() , getPlayerSelection() )
@@ -70,10 +68,22 @@ const game = ( numberOfGames ) => {
     } 
 
     computerScore > playerScore ? printResult("computer") : printResult("player");
-    return
-
-
-    
+    return    
 }
 
-game(5);
+/*--------------------------------------------------------------------*/
+
+let keepGoing = true;
+let playerScore , computerScore;
+
+while ( keepGoing === true ) {
+    
+    playerScore = 0;
+    computerScore = 0;
+    
+    game( numberOfGames() );
+
+    prompt("Do you want to play again?" , ) === "yes" ? keepGoing = true : keepGoing = false;
+}
+
+console.log("The game is over")
